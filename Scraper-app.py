@@ -78,11 +78,11 @@ def main():
         email_extensions_list = ["gmail.com","yahoo.com","hotmail.com","aol.com","icloud.com","hotmail.co.uk","hotmail.fr","msn.com","yahoo.fr","wanadoo.fr","orange.fr","comcast.net","yahoo.co.uk","yahoo.com.br","yahoo.co.in","live.com","rediffmail.com","free.fr","gmx.de","web.de","yandex.ru","ymail.com","libero.it","outlook.com","uol.com.br","bol.com.br","mail.ru","cox.net","hotmail.it","sbcglobal.net","sfr.fr","live.fr","verizon.net","live.co.uk","googlemail.com","yahoo.es","ig.com.br","live.nl","bigpond.com","terra.com.br","yahoo.it","neuf.fr","yahoo.de","alice.it","rocketmail.com","att.net","laposte.net","bellsouth.net","yahoo.in","hotmail.es","charter.net","yahoo.ca","yahoo.com.au","rambler.ru","hotmail.de","tiscali.it","shaw.ca","yahoo.co.jp","sky.com","earthlink.net","optonline.net","freenet.de","t-online.de","aliceadsl.fr","virgilio.it","home.nl","qq.com","telenet.be","me.com","yahoo.com.ar","tiscali.co.uk","yahoo.com.mx","voila.fr","gmx.net","mail.com","planet.nl","tin.it","live.it","ntlworld.com","arcor.de","yahoo.co.id","frontiernet.net","hetnet.nl","live.com.au","yahoo.com.sg","zonnet.nl","club-internet.fr","juno.com","optusnet.com.au","blueyonder.co.uk","bluewin.ch","skynet.be","sympatico.ca","windstream.net","mac.com","centurytel.net","chello.nl","live.ca","aim.com","bigpond.com.au","titan.com"]
         country_name = st.sidebar.selectbox("Country",countries_list)
         email_type = st.sidebar.selectbox("Email Type",email_extensions_list)
-        tasks_list = ["Emails","URLS","Phonenumbers"]
+        tasks_list = ["Emails","URLS",""]
         task_option = st.sidebar.multiselect("Task",tasks_list,default="Emails")
         search_text = st.text_input("Paste Term Here")
         # dentist + USA + email@aol.com
-        generated_query = f"{search_text} + {country_name} + email@{email_type}"
+        generated_query = f"{search_text} + {country_name} + email@{email_type} + site:linkedin.com/in&num=200"
         st.info("Generated Query: {}".format(generated_query))
 
         if st.button("Search & Extract"):
@@ -91,7 +91,7 @@ def main():
                 # st.write(text)
 
                 task_mapper = {"Emails": nfx.extract_emails(text), "URLS": nfx.extract_urls(text),
-                               "Phonenumbers": nfx.extract_phone_numbers(text)}
+                            #    "Phonenumbers": nfx.extract_phone_numbers(text)}
 
                 all_results = []
                 for task in task_option:
@@ -109,13 +109,13 @@ def main():
     elif choice == "Single Extractor":
         st.subheader("Extract A Single Term")
         text = st.text_area("Paste Text Here")
-        task_option = st.sidebar.selectbox("Task",["Emails","URLS","Phonenumbers"])
+        task_option = st.sidebar.selectbox("Task",["Emails","URLS",""])
         if st.button("Extract"):
 
             if task_option == "URLS":
                 results = nfx.extract_urls(text)
-            elif task_option == "Phonenumbers":
-                results = nfx.extract_phone_numbers(text)
+            # elif task_option == "Phonenumbers":
+            #     results = nfx.extract_phone_numbers(text)
             else:
                 results = nfx.extract_emails(text)
 
@@ -130,10 +130,10 @@ def main():
     elif choice == "Bulk Extractor":
         st.subheader("Bulk Extractor")
         text = st.text_area("Paste Text Here")
-        tasks_list = ["Emails","URLS","Phonenumbers"]
+        tasks_list = ["Emails","URLS",""]
         task_option = st.sidebar.multiselect("Task",tasks_list,default="Emails")
         task_mapper = {"Emails":nfx.extract_emails(text),"URLS":nfx.extract_urls(text),
-                       "Phonenumbers":nfx.extract_phone_numbers(text)}
+                    #    "Phonenumbers":nfx.extract_phone_numbers(text)}
 
         all_results = []
         for task in task_option:
