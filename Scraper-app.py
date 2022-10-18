@@ -91,7 +91,7 @@ def main():
                 # st.write(text)
 
                 task_mapper = {"Emails": nfx.extract_emails(text), "URLS": nfx.extract_urls(text),
-                            #    "Phonenumbers": nfx.extract_phone_numbers(text)}
+                               "Phonenumbers": nfx.extract_phone_numbers(text)}
 
                 all_results = []
                 for task in task_option:
@@ -133,7 +133,7 @@ def main():
         tasks_list = ["Emails","URLS",""]
         task_option = st.sidebar.multiselect("Task",tasks_list,default="Emails")
         task_mapper = {"Emails":nfx.extract_emails(text),"URLS":nfx.extract_urls(text),
-                    #    "Phonenumbers":nfx.extract_phone_numbers(text)}
+                       "Phonenumbers":nfx.extract_phone_numbers(text)}
 
         all_results = []
         for task in task_option:
