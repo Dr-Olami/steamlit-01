@@ -69,7 +69,7 @@ def main():
 
     # stc.html(custom_title)
 
-    menu = ["Home","Single Extractor","Bulk Extractor","About"]
+    menu = ["Home","Single Extractor","About"]
     choice = st.sidebar.selectbox("Menu",menu)
 
     if choice == "Home":
@@ -127,26 +127,26 @@ def main():
                 make_downloadable(results_df,task_option)
 
 
-    elif choice == "Bulk Extractor":
-        st.subheader("Bulk Extractor")
-        text = st.text_area("Paste Text Here")
-        tasks_list = ["Emails","URLS",""]
-        task_option = st.sidebar.multiselect("Task",tasks_list,default="Emails")
-        task_mapper = {"Emails":nfx.extract_emails(text),"URLS":nfx.extract_urls(text),
-                       "Phonenumbers":nfx.extract_phone_numbers(text)}
+#     elif choice == "Bulk Extractor":
+#         st.subheader("Bulk Extractor")
+#         text = st.text_area("Paste Text Here")
+#         tasks_list = ["Emails","URLS",""]
+#         task_option = st.sidebar.multiselect("Task",tasks_list,default="Emails")
+#         task_mapper = {"Emails":nfx.extract_emails(text),"URLS":nfx.extract_urls(text),
+#                        "Phonenumbers":nfx.extract_phone_numbers(text)}
 
-        all_results = []
-        for task in task_option:
-            results =task_mapper[task]
-            # st.write(results)
-            all_results.append(results)
-        st.write(all_results)
+#         all_results = []
+#         for task in task_option:
+#             results =task_mapper[task]
+#             # st.write(results)
+#             all_results.append(results)
+#         st.write(all_results)
 
-        with st.beta_expander("Results As DataFrame"):
-            results_df = pd.DataFrame(all_results).T
-            results_df.columns = task_option
-            st.dataframe(results_df)
-            make_downloadable_df(results_df)
+#         with st.beta_expander("Results As DataFrame"):
+#             results_df = pd.DataFrame(all_results).T
+#             results_df.columns = task_option
+#             st.dataframe(results_df)
+#             make_downloadable_df(results_df)
     else:
         st.subheader("About")
 
